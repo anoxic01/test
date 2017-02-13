@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<script src="js/test1.js"></script>
+<head>
+<base href="" />
+<base target="_blank" />
+<meta charset="utf-8">
+<title>测试页面</title>
+</head>
+<body>
+<h1>我的第一个 JavaScript 程序</h1>
+<p id="demo">这是一个段落</p>
+<div onMouseOver="showList()" onMouseOut="hideList()">
+<a >北京</a> 
+<div id="test" class="TopHotcityC"> <span>热门城市：</span> <a href="http://www.baidu.com/"   target="_blank">北京</a> <a href="http://www.baidu.com/"   target="_blank">天津</a> <a href="http://www.baidu.com/"   target="_blank">上海</a> </div>
+</div>
+
+<script type = "text/javascript" >
+	function GetJson() {
+		var xmlHttp;
+		try {
+			// Firefox, Opera 8.0+, Safari 
+			xmlHttp = new XMLHttpRequest();
+		} catch (e) {
+			// Internet Explorer 
+			try {
+				xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+
+				try {
+					xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (e) {
+					alert("您的浏览器不支持AJAX！");
+					return false;
+				}
+			}
+		}
+
+		xmlHttp.onreadystatechange = function () {
+			document.getElementById('show').innerHTML = xmlHttp.readyState;
+			if (xmlHttp.readyState == 4) {
+				//alert(xmlHttp.responseText); 
+				var str = xmlHttp.responseText;
+				document.getElementById('show').innerHTML += str;
+				//alert(str); 
+				var obj = eval('(' + xmlHttp.responseText + ')');
+				//var obj = eval(({"id":"123","name":"elar","age":"21"})); 
+				alert(obj.name);
+			}
+		}
+		var data = "id=123";
+		xmlHttp.open("POST", "testPHP.php", true);
+		xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xmlHttp.send("id=123");
+	} 
+	</script>  
+	<input type = "button" onclick = "GetJson()" value = "按我！" / >
+	<hr / >
+	<div id = "show" > < /div> // JavaScript Document
+
+<script>
+	hideList();
+	</script>
+</body>
+</html>
